@@ -16,7 +16,7 @@ Use plain language, guide students through statistical reasoning, and explain R 
 Use real-world social science examples when possible."""
 
 st.set_page_config(page_title="Stats Tutor", layout="wide")
-st.title("📊 Statistics Tutor for SOC302")
+st.title("📊 Statistics Tutor for STA145")
 
 with st.form("question_form"):
     question = st.text_area("Ask me a statistics question:")
