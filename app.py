@@ -22,17 +22,22 @@ with st.form("question_form"):
     question = st.text_area("Ask me a statistics question:")
     submitted = st.form_submit_button("Submit")
 
-if submitted and question:
-    with st.spinner("Thinking..."):
-        try:
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": question}
-                ]
-            )
-            st.markdown("### 🧠 Tutor's Response:")
-            st.write(response.choices[0].message.content)
-        except Exception as e:
-            st.error(f"Something went wrong: {e}")
+if submitted:
+    if len(question) > 100:
+        st.warning("❗Your question is too long. Please keep it under 100 characters.")
+    elif question.strip() == "":
+        st.warning("Please enter a question.")
+    else:
+        with st.spinner("Thinking..."):
+            try:
+                response = client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": SYSTEM_PROMPT},
+                        {"role": "user", "content": question}
+                    ]
+                )
+                st.markdown("### 🧠 Tutor's Response:")
+                st.write(response.choices[0].message.content)
+            except Exception as e:
+                st.error(f"Something went wrong: {e}")
